@@ -18,10 +18,6 @@ public class Ticket {
         this.ticketType = seatTypeString;
     }
 
-    public String getTicketType() {
-        return ticketType;
-    }
-
     public int getSeatNumber() {
         return ticketNumber;
     }

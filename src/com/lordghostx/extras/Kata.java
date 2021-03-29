@@ -76,18 +76,4 @@ public class Kata {
     public static int getMinimumCombinationSum(int[] numbers) {
         return getSumOfNumbers(numbers) - getMaximumOfNumbers(numbers);
     }
-
-    public static int[] sortNumbers(int[] numbersToSort) {
-        int swapNumber;
-        for (int i = 0; i < numbersToSort.length + 1; i++) {
-            for (int j = 0; j < numbersToSort.length - 1; j++) {
-                if (numbersToSort[j] > numbersToSort[j + 1]) {
-                    swapNumber = numbersToSort[j + 1];
-                    numbersToSort[j + 1] = numbersToSort[j];
-                    numbersToSort[j] = swapNumber;
-                }
-            }
-        }
-        return numbersToSort;
-    }
 }
