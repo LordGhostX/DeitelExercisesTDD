@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class KahootTest {
     Kahoot kahoot;
     Player player;
+    String[] sampleOptions = new String[]{"Opt 1", "Opt 2", "Opt 3"};
 
     @BeforeEach
     void beforeEach() {
@@ -24,31 +25,31 @@ class KahootTest {
 
     @Test
     void kahootCanCreateQuestion() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         assertEquals(1, kahoot.getTotalQuestions());
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         assertEquals(3, kahoot.getTotalQuestions());
     }
 
     @Test
     void kahootCanDeleteQuestion() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.deleteQuestion(0);
         assertEquals(1, kahoot.getTotalQuestions());
     }
 
     @Test
     void kahootCannotDelete404Question() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.deleteQuestion(10);
         assertEquals(1, kahoot.getTotalQuestions());
     }
 
     @Test
     void kahootCanCreateGame() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         assertEquals(1, kahoot.getTotalGames());
         kahoot.createGame(1, 1);
@@ -58,7 +59,7 @@ class KahootTest {
 
     @Test
     void kahootCanDeleteGame() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         kahoot.createGame(1, 1);
         kahoot.deleteGame(0);
@@ -67,7 +68,7 @@ class KahootTest {
 
     @Test
     void kahootCannotDelete404Game() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         kahoot.deleteGame(5);
         assertEquals(1, kahoot.getTotalGames());
@@ -75,7 +76,7 @@ class KahootTest {
 
     @Test
     void kahootGameCanShowTimer() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(30, 1);
         Game currentGame = kahoot.getGame(0);
         assertEquals(30, currentGame.getGameTimer());
@@ -88,7 +89,7 @@ class KahootTest {
     @Test
     void kahootGameCannotBeSetToNegativeTimer() {
         for (int i = 0; i < 10; i++) {
-            kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+            kahoot.createQuestion("Sample Question", sampleOptions, '2');
         }
 
         kahoot.createGame(-10, 10);
@@ -101,12 +102,12 @@ class KahootTest {
 
     @Test
     void kahootGameCanGenerateQuestions() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(30, 1);
         Game currentGame = kahoot.getGame(0);
         assertEquals(1, currentGame.getQuestions().length);
 
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(30, 2);
         currentGame = kahoot.getGame(1);
         assertEquals(2, currentGame.getQuestions().length);
@@ -117,7 +118,7 @@ class KahootTest {
         kahoot.createGame(1, -10);
         assertEquals(0, kahoot.getTotalGames());
 
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         kahoot.createGame(1, -5);
         assertEquals(1, kahoot.getTotalGames());
@@ -131,7 +132,7 @@ class KahootTest {
 
     @Test
     void kahootGameCanEvaluateUserSubmission() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         Game currentGame = kahoot.getGame(0);
         assertEquals(1, currentGame.evaluateSubmission("2"));
@@ -139,7 +140,7 @@ class KahootTest {
 
     @Test
     void kahootGameCanEvaluateWrongSubmissionToZero() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         Game currentGame = kahoot.getGame(0);
         assertEquals(0, currentGame.evaluateSubmission("1"));
@@ -147,7 +148,7 @@ class KahootTest {
 
     @Test
     void kahootGameSubmissionMustBeSameAsQuestions() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         Game currentGame = kahoot.getGame(0);
         assertEquals(0, currentGame.evaluateSubmission("111111"));
@@ -156,7 +157,7 @@ class KahootTest {
 
     @Test
     void kahootGameSubmissionMustFollowValidFormat() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         Game currentGame = kahoot.getGame(0);
         assertEquals(0, currentGame.evaluateSubmission(" "));
@@ -164,7 +165,7 @@ class KahootTest {
 
     @Test
     void kahootGameCanGetQuestionInfo() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         Game currentGame = kahoot.getGame(0);
         assertEquals("ID=0\ntitle=Sample Question\noptions=[Opt 1, Opt 2, Opt 3]", currentGame.getQuestions()[0].toString());
@@ -172,7 +173,7 @@ class KahootTest {
 
     @Test
     void kahootPlayerCanStartGame() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         Game currentGame = kahoot.getGame(0);
 
@@ -183,7 +184,7 @@ class KahootTest {
 
     @Test
     void kahootPlayerCanStopCurrentGame() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         Game currentGame = kahoot.getGame(0);
 
@@ -194,7 +195,7 @@ class KahootTest {
 
     @Test
     void kahootPlayerCanGetGameQuestions() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         Game currentGame = kahoot.getGame(0);
 
@@ -209,7 +210,7 @@ class KahootTest {
 
     @Test
     void kahootPlayerCanSubmitGame() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         Game currentGame = kahoot.getGame(0);
 
@@ -224,7 +225,7 @@ class KahootTest {
 
     @Test
     void kahootPlayerGameIsResetAfterSubmission() {
-        kahoot.createQuestion("Sample Question", new String[]{"Opt 1", "Opt 2", "Opt 3"}, '2');
+        kahoot.createQuestion("Sample Question", sampleOptions, '2');
         kahoot.createGame(1, 1);
         Game currentGame = kahoot.getGame(0);
 
