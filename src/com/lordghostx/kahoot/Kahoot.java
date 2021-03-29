@@ -42,19 +42,13 @@ public class Kahoot {
 
     private Question[] generateQuestions(int gameQuestionCount) {
         Question[] generatedQuestions = new Question[gameQuestionCount];
+        ArrayList<Question> tempQuestions = (ArrayList<Question>) questions.clone();
 
         Random rand = new Random();
-        Question tempQuestion;
-        int firstQuestionIndex, secondQuestionIndex, questionSize = questions.size();
-        for (int i = 0; i < questionSize / 2; i++) {
-            firstQuestionIndex = rand.nextInt(questionSize);
-            secondQuestionIndex = rand.nextInt(questionSize);
-            tempQuestion = questions.get(firstQuestionIndex);
-            questions.set(firstQuestionIndex, questions.get(secondQuestionIndex));
-            questions.set(secondQuestionIndex, tempQuestion);
-        }
         for (int i = 0; i < gameQuestionCount; i++) {
-            generatedQuestions[i] = questions.get(i);
+            int randomIndex = rand.nextInt(tempQuestions.size());
+            generatedQuestions[i] = tempQuestions.get(randomIndex);
+            tempQuestions.remove(randomIndex);
         }
 
         return generatedQuestions;

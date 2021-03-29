@@ -92,11 +92,11 @@ class KahootTest {
             kahoot.createQuestion("Sample Question", sampleOptions, '2');
         }
 
-        kahoot.createGame(-10, 10);
+        kahoot.createGame(-10, 5);
         assertEquals(0, kahoot.getTotalGames());
 
-        kahoot.createGame(10, 10);
-        kahoot.createGame(-10, 10);
+        kahoot.createGame(10, 5);
+        kahoot.createGame(-10, 5);
         assertEquals(1, kahoot.getTotalGames());
     }
 
@@ -111,6 +111,19 @@ class KahootTest {
         kahoot.createGame(30, 2);
         currentGame = kahoot.getGame(1);
         assertEquals(2, currentGame.getQuestions().length);
+    }
+
+    @Test
+    void kahootGameGeneratesRandomSetOfQuestions() {
+        for (int i = 0; i < 10; i++) {
+            kahoot.createQuestion("Sample Question", sampleOptions, '2');
+        }
+
+        for (int i = 0; i < 100; i++) {
+            kahoot.createGame(1, 2);
+            Game currentGame = kahoot.getGame(i);
+            assertNotEquals(currentGame.getQuestions()[1].getQuestionID(), currentGame.getQuestions()[0].getQuestionID());
+        }
     }
 
     @Test
