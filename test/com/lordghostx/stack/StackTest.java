@@ -50,8 +50,9 @@ class StackTest {
     }
 
     @Test
-    void stackCannotPushZeroValue() {
-        assertThrows(IllegalArgumentException.class, ()-> stack.push(0));
+    void stackCanPushZeroValue() {
+        stack.push(0);
+        assertEquals(9, stack.getFreeBlocksCount());
     }
 
     @Test

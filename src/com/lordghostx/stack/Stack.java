@@ -1,11 +1,11 @@
 package com.lordghostx.stack;
 
 public class Stack {
-    private final int[] stackBlocks;
+    private final StackElement[] stackBlocks;
 
     public Stack(int stackSize) {
         if (stackSize <= 0) throw new IllegalArgumentException();
-        stackBlocks = new int[stackSize];
+        stackBlocks = new StackElement[stackSize];
     }
 
     public int getSize() {
@@ -13,25 +13,23 @@ public class Stack {
     }
 
     public void push(int number) {
-        if (number == 0) throw new IllegalArgumentException();
-
         int freeBlock = getFreeBlockIndex();
         if (freeBlock == -1) throw new StackOverflowError();
 
-        stackBlocks[freeBlock] = number;
+        stackBlocks[freeBlock] = new StackElement(number);
     }
 
     private int getFreeBlockIndex() {
         for (int i = 0; i < stackBlocks.length; i++) {
-            if (stackBlocks[i] == 0) return i;
+            if (stackBlocks[i] == null) return i;
         }
         return -1;
     }
 
     public int getFreeBlocksCount() {
         int freeBlocks = 0;
-        for (int i : stackBlocks) {
-            if (i == 0) freeBlocks++;
+        for (StackElement element : stackBlocks) {
+            if (element == null) freeBlocks++;
         }
         return freeBlocks;
     }
@@ -40,8 +38,8 @@ public class Stack {
         int blockToPop = getFreeBlockIndex() - 1;
         if (blockToPop < 0) throw new IllegalArgumentException();
 
-        int elementToBePopped = stackBlocks[blockToPop];
-        stackBlocks[blockToPop] = 0;
+        int elementToBePopped = stackBlocks[blockToPop].getValue();
+        stackBlocks[blockToPop] = null;
         return elementToBePopped;
     }
 
@@ -49,6 +47,6 @@ public class Stack {
         int blockToPeek = getFreeBlockIndex() - 1;
         if (blockToPeek < 0) throw new IllegalArgumentException();
 
-        return stackBlocks[blockToPeek];
+        return stackBlocks[blockToPeek].getValue();
     }
 }
