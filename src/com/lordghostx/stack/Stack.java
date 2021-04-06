@@ -35,8 +35,10 @@ public class Stack {
     }
 
     public int pop() {
-        int blockToPop = getFreeBlockIndex() - 1;
-        if (blockToPop < 0) throw new IllegalArgumentException();
+        int blockToPop = getFreeBlockIndex();
+        if (blockToPop == 0) throw new IllegalArgumentException();
+        else if (blockToPop == -1) blockToPop = stackBlocks.length - 1;
+        else blockToPop -= 1;
 
         int elementToBePopped = stackBlocks[blockToPop].getValue();
         stackBlocks[blockToPop] = null;

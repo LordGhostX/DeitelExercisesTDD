@@ -47,6 +47,11 @@ class StackTest {
 
         stack.push(5);
         assertEquals(8, stack.getFreeBlocksCount());
+
+        for (int i = 0; i < 8; i++) {
+            stack.push(10);
+        }
+        assertEquals(0, stack.getFreeBlocksCount());
     }
 
     @Test
@@ -72,6 +77,15 @@ class StackTest {
     }
 
     @Test
+    void stackCanPopElementWhenFull() {
+        for (int i = 0; i < 10; i++) {
+            stack.push(10);
+        }
+        stack.pop();
+        assertEquals(1, stack.getFreeBlocksCount());
+    }
+
+    @Test
     void stackCanGetElementThatWasPopped() {
         stack.push(10);
         assertEquals(10, stack.pop());
@@ -88,7 +102,7 @@ class StackTest {
     }
 
     @Test
-    void stackCanPeekElement() {
+    void stackCanPeekLastElement() {
         stack.push(10);
         assertEquals(10, stack.peek());
 
