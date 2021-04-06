@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Kahoot {
-    ArrayList<Question> questions = new ArrayList<>();
+    ArrayList<Question> questions = new ArrayList<Question>();
     ArrayList<Game> games = new ArrayList<>();
     private int globalQuestionID;
     private int globalGameID;
