@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Kata {
 
     public int countUnique(int ... args) {
-        ArrayList<Integer> countedItems = new ArrayList<Integer>();
+        ArrayList<Integer> uniqueItems = new ArrayList<>();
         for (int i : args) {
-            if (!countedItems.contains(i)) countedItems.add(i);
+            if (!uniqueItems.contains(i)) uniqueItems.add(i);
         }
-        return countedItems.size();
+        return uniqueItems.size();
     }
 }
