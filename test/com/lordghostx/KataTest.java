@@ -23,4 +23,18 @@ class KataTest {
     void kataCanCountUniqueElementsInArray() {
         assertEquals(5, kata.countUnique(0, 0, 1, 1, 2, 2, 3, 3, 4));
     }
+
+    @Test
+    void kataCanFormatPhoneNumber() {
+        assertEquals("(+234) 565-375-86", Kata.formatPhoneNumber("68573565234"));
+    }
+
+    @Test
+    void kataCanCheckIfWordIsPalindrome() {
+        assertTrue(Kata.checkPalindrome("racecar"));
+        assertTrue(Kata.checkPalindrome("radar"));
+        assertTrue(Kata.checkPalindrome("madam"));
+        assertFalse(Kata.checkPalindrome("solomon"));
+        assertFalse(Kata.checkPalindrome("semicolon"));
+    }
 }
